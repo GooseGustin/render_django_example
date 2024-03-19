@@ -31,8 +31,8 @@ SECRET_KEY =  environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = environ.get('DEBUG', 'False').lower() == 'true'
 
-ALLOWED_HOSTS = ['*']
-# ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS').split(' ')
+# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS').split(' ')
 
 
 # Application definition
