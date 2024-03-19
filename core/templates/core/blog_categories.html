@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %} 
+
+{% block title %}Categories{% endblock %} 
+
+{% block content %} 
+
+<div class="container-fluid">
+    <!-- <div class="collapse"></div> -->
+        <ul>
+            {% for cat, posts in cats_and_posts %} 
+            <div class="container border border-dark rounded px-1 py-1 mb-2">
+                <div class=" border border-warning rounded p-1">
+                    <li class="nav-link">
+                        {{ cat }}
+                        <ul>
+                            {% for post in posts %}
+                            <li><a href="{% url 'core:detail' post.id %}" class="text-dark">{{ post.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    </div>
+            </div>
+            {% endfor %}
+        </ul>
+</div>
+
+{% endblock %} 

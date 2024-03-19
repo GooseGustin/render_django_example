@@ -1,0 +1,18 @@
+<div class="blog-nav">
+    <div class="blog-nav-list ">
+        <div class="row px-auto bg-dark py-4">
+            <div class="col "><a href="{% url 'core:home' %}" class="btn btn-bd-primary text-white">Home</a></div>
+            <div class="col px-auto mx-auto"><a href="{% url 'core:categories' %}" class="btn btn-bd-primary text-white">Categories</a></div> 
+            <!-- <div class="col"><a href="" class="btn btn-bd-primary text-white">Favourites</a></div>  -->
+            <!-- <div class="col"><a href="" class="btn btn-bd-primary text-white">Cart</a></div> -->
+            {% if not user.is_authenticated %}
+                <div class="col"><a href="{% url 'authentic:signup' %}" class="btn btn-bd-primary text-white">Sign Up</a></div>
+                <div class="col"><a href="{% url 'authentic:login' %}" class="btn btn-bd-primary text-white">Log In</a></div>
+            {% else %} 
+                <div class="col"><a href="{% url 'authentic:update_password' %}" class="btn btn-bd-primary text-white">Change Password</a></div>
+                <div class="col"><a href="{% url 'authentic:logout' %}" class="btn btn-bd-primary text-white">Log Out</a></div>
+            {% endif %}
+        </div>
+        <hr class="shadow">
+    </div>
+</div>

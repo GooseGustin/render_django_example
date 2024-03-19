@@ -1,0 +1,7 @@
+db.sqlite3
+authentic/__pycache__/
+blogger/__pycache__/
+core/__pycache__/
+static/bootstrap_css
+static/bootstrap_js
+.env

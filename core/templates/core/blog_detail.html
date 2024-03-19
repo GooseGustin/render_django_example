@@ -1,0 +1,95 @@
+{% extends 'core/base.html' %} 
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block styler %} 
+<style>
+hr.text-info {
+    height: 3px;
+    color: black;
+    width: 30px;
+}
+</style>
+{% endblock %}
+
+{% block content %} 
+
+<div>
+    <hr class="text-info my-0">
+    <div class="container-fluid bg-dark text-white text-center">
+        <div class="my-0 py-5 display-6">
+            {{ post.title }}
+        </div>
+    </div>
+    <div class="container mt-3">
+        <div class="card card-body">
+
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">{{ post.author }}</div>
+                    <div class="col-2 text-muted me-0">{{ post.date_published }}</div>
+                </div>
+            </div>
+
+            <div class="card-text">
+                {{ post.content }}
+                <hr>
+                <div class="row bg-dark text-warning border border-warning">
+                    <p>{% for tag in post.tags.all %} 
+                        <span class=" mx-3">#{{ tag }}</span>
+                    {% endfor %}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Comments -->
+            <div class="card-footer mt-4">
+                {% if post.comment_set.all %}
+                    <div class="h5">Comments</div>
+                {% endif %}
+                {% for comment in post.comment_set.all reversed %}
+                <hr>
+                    <div class="row">
+                        <div class="col-5 text-center text-warning container">
+                            <div class=" bg-secondary rounded p-2">{{ comment.username }}</div>
+                        </div>                        
+                        <div class="col-7"></div>
+                    </div>
+                    <p>{{ comment.content }}</p>
+                {% endfor %}
+            </div>
+
+            {% if user.is_authenticated and edit_authorisation %} 
+            <div class="row">
+                <div class="col mx-3">
+                    <a href="{% url 'core:update' post.id %}" class="form-control btn btn-dark text-white">Edit</a>
+                </div>
+                <div class="col mx-3">
+                    <a href="{% url 'core:delete' post.id %}" class="form-control btn btn-danger text-white">Delete</a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="mt-5 card border border-secondary">
+            <div class="card-header">Comment on this post</div>
+            <div class="card-text px-2">
+                <form action="../{{ post.id }}/comment-create" class="form" method="post">{% csrf_token %}
+                    <label for="username" class="form-control">
+                        <input type="text" name="username" id="" class="form-control"
+                            placeholder="Username">
+                    </label>
+                    <label for="content" class="form-control">
+                        <input type="text" name="content" id="" class="form-control"
+                            placeholder="Enter comment...">
+                    </label>
+                    <div class="form-control">
+                        <input type="submit" value="Done" class="btn btn-dark text-white">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

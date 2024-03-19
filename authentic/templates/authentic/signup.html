@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Sign Up{% endblock %} 
+
+{% block content %} 
+
+<div class="">
+    <div class="container-fluid bg-dark text-white row py-lg-5 mb-4">
+        <div class="my-5 text-center bg-dark display-3">
+            Sign Up
+        </div>
+    </div>
+    <div class="container form my-2">
+        <form action="{% url 'authentic:signup' %}" method="post" class="">{% csrf_token %}
+            <label for="username" class="label form-control">
+                <input type="text" name="username" class="form-control" placeholder="Username">
+            </label>
+            <label for="password1" class="label form-control">
+                <input type="password" name="password1" id="" class="form-control" placeholder="Password">
+            </label>
+            <label for="password2" class="label form-control">
+                <input type="password" name="password2" id="" class="form-control" placeholder="Reenter password">
+            </label>
+            <div class="form-control btn btn-success">
+                <button type="submit" class="btn">Login</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

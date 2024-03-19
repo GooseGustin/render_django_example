@@ -1,0 +1,81 @@
+{% extends 'core/base.html' %} 
+
+{% block title %}Create post{% endblock %} 
+
+{% block content %} 
+
+<div class="">
+    <div class="container-fluid bg-dark text-white row py-lg-5 mb-4">
+        <div class="my-5 text-center bg-dark display-3">
+            Update Post
+        </div>
+    </div>
+    <div class="container">
+        <!-- this enctype means allow images -->
+        <form class="form form-control" action="" method="post">{% csrf_token %}
+
+            <!-- Post -->
+            <label for="title" class="label form-control text-muted bg-dark my-3">
+                <input type="text" name="title" class="form-control" 
+                    placeholder="Title" value="{{ post.title }}">
+            </label>
+            <label for="description" class="label form-control bg-warning my-3">
+                <textarea name="content" id="" cols="30" rows="10" placeholder="Write here..." class="form-control">{{ post.content }}</textarea>
+            </label>
+            <label for="title" class="label form-control text-muted bg-dark my-3"><span class="text-white">Choose category</span>
+                <select class="form-control" name="category" id="">
+                    {% for option in category_options %} 
+                    <option 
+                    value="{{ option }}"
+                    {% if option == cat_name %} selected="selected" {% endif %}>
+                    {{ option|title }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </label>
+            
+            <!-- Tags -->
+            <div class="tags card card-body my-3 bg-dark">
+                <div class="card-header text-white">Choose or create tags</div>
+                <div class="card-text mt-3">
+                    <div class="row container">
+                        {% for tag in all_tags %}
+                        
+                        <div class="col-2 mx-1 my-1 bg-secondary text-white px-1 py-1border rounded rounded-4">
+                            <label for="tag_{{ tag.name }}" class="bg-secondary label form-control check-input border-secondary text-white">
+                                <input 
+                                    type="checkbox" 
+                                    name="tag_{{ tag.name }}" 
+                                    id=""
+                                    {% if tag in post.tags.all %}checked{% endif %}>
+                                <span>{{ tag.name }}</span>
+                            </label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <input type="text" name="new_tags" id="" class="form-control" placeholder="Enter tags, seperate with commas...">
+                </div>
+            </div>
+
+            <!-- Submit -->
+            <div class="row">
+                <div class="col">
+                    <div class="mt-3 ">
+                        <a href="{% url 'core:detail' post.id %}" class="btn btn-outline-warning form-control">Cancel</a>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="mt-3 btn btn-outline-warning form-control">
+                        <input class="form-control border border-secondary" type="submit" value="Save">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+
+{% endblock %}
